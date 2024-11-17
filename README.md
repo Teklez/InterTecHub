@@ -33,20 +33,17 @@ To run this project locally, you need to have [Node.js](https://nodejs.org/en/) 
 2. Navigate to the project directory
    
     ``` bash
-      Copy code
       cd InterTecHub 
 
 3. Install the project dependencies
 
     ``` bash
-      Copy code
       npm install
       Start the server:
 
 4. run the app
 
      ``` bash
-      Copy code
       npm start
 
 The server will be running locally on http://localhost:3000.
