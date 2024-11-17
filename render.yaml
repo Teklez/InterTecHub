@@ -10,5 +10,3 @@ services:
         value: "3000"
     autoDeploy: true
     healthCheckPath: "/"
-    regions:
-      - "us-east"
