@@ -28,7 +28,7 @@ To run this project locally, you need to have [Node.js](https://nodejs.org/en/) 
 
 1. Clone this repository to your local machine:
    ```bash
-   git clone https://github.com/Teklez/
+   git clone https://github.com/Teklez/InterTecHub/tree/stage-1
    
 2. Navigate to the project directory
    
