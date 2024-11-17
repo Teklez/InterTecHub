@@ -10,6 +10,9 @@ router.get("/hobby", (req, res) => {
     res.send("I like reading in my free time")
 })
 
+router.get("/dream", (req, res)=>{
+    
+})
 
 module.exports = router;
 
