@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: express-api
+    env: node
+    plan: free
+    buildCommand: "npm install"
+    startCommand: "npm start"
+    envVars:
+      - key: PORT
+        value: "3000"
+    autoDeploy: true
+    healthCheckPath: "/"
+    regions:
+      - "us-east"
