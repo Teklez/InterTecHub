@@ -39,9 +39,8 @@ To run this project locally, you need to have [Node.js](https://nodejs.org/en/) 
 
     ``` bash
       npm install
-      Start the server:
 
-4. run the app
+4. Start the server
 
      ``` bash
       npm start
