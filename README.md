@@ -29,12 +29,13 @@ To run this project locally, you need to have [Node.js](https://nodejs.org/en/) 
 1. Clone this repository to your local machine:
    ```bash
    git clone https://github.com/Teklez/InterTecHub.git
-   git checkout stage-1
    
 2. Navigate to the project directory
    
     ``` bash
-      cd InterTecHub 
+      cd InterTecHub
+      git checkout stage-1
+    
 
 3. Install the project dependencies
 
