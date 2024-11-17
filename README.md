@@ -34,7 +34,7 @@ To run this project locally, you need to have [Node.js](https://nodejs.org/en/) 
    
     ``` bash
       Copy code
-      cd InterTecHub ```
+      cd InterTecHub 
 
 3. Install the project dependencies
 
