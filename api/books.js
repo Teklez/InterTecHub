@@ -10,8 +10,8 @@ export const booksRouter = express.Router();
 
 booksRouter.get("/books", async (req, res) => {
   try {
-    const books = await prisma.book.findMany({});
-    if (books) {
+    const books = await prisma.book.findMany();
+    if (!books) {
       res.json({
         message: "No books found",
       });
@@ -121,6 +121,46 @@ booksRouter.put(
       });
     } catch (error) {
       console.error("Error Updating book:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+// DELETE book with specified id
+
+booksRouter.delete(
+  "/books/:id",
+  param("id")
+    .notEmpty()
+    .custom(async (value) => {
+      const bookExists = await prisma.book.findUnique({
+        where: {
+          id: parseInt(value),
+        },
+      });
+      if (!bookExists) {
+        throw new Error("A book with this id doesn't exists.");
+      }
+    }),
+  async (req, res) => {
+    // result of validation chain
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+      await prisma.book.delete({
+        where: {
+          id: parseInt(req.params.id),
+        },
+      });
+
+      res.status(200).json({
+        message: "Book successfully deleted.",
+      });
+    } catch (error) {
+      console.error("Error while deleting book:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   }
