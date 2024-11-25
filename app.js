@@ -6,7 +6,8 @@ dotenv.config();
 const app = express();
 
 // middlewares
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use("/", booksRouter);
 
 // root endpoint
