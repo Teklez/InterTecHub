@@ -21,7 +21,7 @@ booksRouter.get("/books", async (req, res) => {
       });
     }
   } catch (error) {
-    return console.error("Error while fetching books:", error);
+    console.error("Error while fetching books:", error);
     res.status(500).json({ message: "Internal server Error" });
   }
 });
@@ -46,7 +46,15 @@ booksRouter.post(
         throw new Error("A book with this ISBN already exists.");
       }
     }),
-  body("publishedYear").notEmpty().isLength({ min: 4, max: 4 }),
+  body("publishedYear")
+    .notEmpty()
+    .isLength({ min: 4, max: 4 })
+    .custom((value) => {
+      const currentYear = new Date().getFullYear();
+      if (parseInt(value) > currentYear) {
+        throw new Error("Published year cannot be in the future.");
+      }
+    }),
 
   async (req, res) => {
     // result of validation chain
@@ -79,13 +87,13 @@ booksRouter.post(
 booksRouter.put(
   "/books/:id",
   // validation chain
-  body("title").notEmpty().isLength({ min: 3, max: 30 }),
-  body("author").notEmpty().isLength({ min: 3, max: 30 }),
-  body("isbn").notEmpty().isISBN(),
-  body("publishedYear").notEmpty().isLength({ min: 4, max: 4 }),
+  body("title").optional().isLength({ min: 3, max: 30 }),
+  body("author").optional().isLength({ min: 3, max: 30 }),
+  body("isbn").optional().isISBN(),
+  body("publishedYear").optional().isLength({ min: 4, max: 4 }),
   param("id")
     .notEmpty()
-    .custom(async (value) => {
+    .custom(async (value, { req }) => {
       const bookExists = await prisma.book.findUnique({
         where: {
           id: parseInt(value),
@@ -93,6 +101,20 @@ booksRouter.put(
       });
       if (!bookExists) {
         throw new Error("A book with this id doesn't exists.");
+      }
+
+      // if books exists, add the fields to the req.body that are empty in the request body
+      if (!req.body.title) {
+        req.body.title = bookExists.title;
+      }
+      if (!req.body.author) {
+        req.body.author = bookExists.author;
+      }
+      if (!req.body.isbn) {
+        req.body.isbn = bookExists.isbn;
+      }
+      if (!req.body.publishedYear) {
+        req.body.publishedYear = bookExists.publishedYear;
       }
     }),
 
@@ -165,3 +187,23 @@ booksRouter.delete(
     }
   }
 );
+
+booksRouter.get("/books/recommendation", async (req, res) => {
+  try {
+    const books = await prisma.book.findMany();
+
+    if (!books) {
+      res.json({
+        message: "No books found",
+      });
+    } else {
+      const randomIndex = Math.floor(Math.random() * books.length);
+      res.status(200).json({
+        book: books[randomIndex],
+      });
+    }
+  } catch (error) {
+    console.error("Error while fetching books:", error);
+    res.status(500).json({ message: "Internal server Error" });
+  }
+});
