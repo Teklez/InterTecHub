@@ -43,5 +43,8 @@ Add the following variables in the .env in the root of the app
 
 you can now access the app on http://localhost:PORT/
 
+### You can also see the live demo
+https://intertechub-t36n.onrender.com
+
 
 
