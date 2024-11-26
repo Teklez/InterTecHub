@@ -8,7 +8,6 @@ This is a simple Book Management API built with **Express.js**, **PostgreSQL**, 
 - Add a new book to the database with validation.
 - Update book details by ID with validation.
 - Remove a book from the database by ID.
-- Custom endpoints for unique features:
 - Suggests a random book from your collection.
 
 
