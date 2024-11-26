@@ -1,7 +1,6 @@
 # Book Management API
 
-This is a simple Book Management API built with **Express.js**, **PostgreSQL**, and **Prisma ORM**. It supports CRUD operations and includes custom endpoints for additional functionality.
-
+This is a simple Book Management API built with **Express.js**, **PostgreSQL**, and **Prisma ORM**. It supports CRUD operations.
 ## Features
 
 - Fetch all books from the database.
